@@ -1,0 +1,274 @@
+[
+    {
+        "id": "3e6bef65.0e917",
+        "type": "tab",
+        "label": "Intelligent Help Desk",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "2e25fa66.635a46",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Intelligent Help Desk",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "4110e974.e6a038",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#0080ff",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": true
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": true
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Intelligent Help Desk",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 68,
+                "sy": 68,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "f07e3f79.4daf1",
+        "type": "ui_group",
+        "z": "",
+        "name": "Input",
+        "tab": "2e25fa66.635a46",
+        "order": 1,
+        "disp": true,
+        "width": 4,
+        "collapse": false
+    },
+    {
+        "id": "620f34c0.ede2dc",
+        "type": "ui_spacer",
+        "name": "spacer",
+        "group": "9bae1ee9.90d54",
+        "order": 1,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "7545fbdc.c4d3c4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Output",
+        "tab": "2e25fa66.635a46",
+        "order": 2,
+        "disp": true,
+        "width": 16,
+        "collapse": false
+    },
+    {
+        "id": "e07dc6cc.b2b1a8",
+        "type": "ui_spacer",
+        "name": "spacer",
+        "group": "7545fbdc.c4d3c4",
+        "order": 2,
+        "width": "16",
+        "height": "6"
+    },
+    {
+        "id": "4de58dfc.5f8654",
+        "type": "function",
+        "z": "3e6bef65.0e917",
+        "name": "",
+        "func": "msg.payload = msg.payload.input;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 240,
+        "wires": [
+            [
+                "9f4bb551.539818"
+            ]
+        ]
+    },
+    {
+        "id": "73953227.25a5bc",
+        "type": "debug",
+        "z": "3e6bef65.0e917",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 600,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "881baa41.6a0ab8",
+        "type": "function",
+        "z": "3e6bef65.0e917",
+        "name": "",
+        "func": "msg.payload.text = \"\";\nif(msg.payload.context.webhook_result_1){\n    for(var i in msg.payload.context.webhook_result_1.results){\n             msg.payload.text=msg.payload.text+ \"<br>\" + msg.payload.context.webhook_result_1.results[i].text;\n    }\n    msg.payload=msg.payload.text;\n}\nelse\nmsg.payload = msg.payload.output.text[0];\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 620,
+        "y": 240,
+        "wires": [
+            [
+                "23dc138f.6b966c"
+            ]
+        ]
+    },
+    {
+        "id": "a4fd2a82.b4ef98",
+        "type": "ui_form",
+        "z": "3e6bef65.0e917",
+        "name": "",
+        "label": "",
+        "group": "f07e3f79.4daf1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Please enter your query",
+                "value": "input",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "input": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "",
+        "x": 100,
+        "y": 320,
+        "wires": [
+            [
+                "4de58dfc.5f8654"
+            ]
+        ]
+    },
+    {
+        "id": "9f4bb551.539818",
+        "type": "watson-conversation-v1",
+        "z": "3e6bef65.0e917",
+        "name": "",
+        "workspaceid": "98004cc7-2852-4dbd-b548-7e566fdb074b",
+        "multiuser": false,
+        "context": false,
+        "empty-payload": false,
+        "service-endpoint": "https://api.us-south.assistant.watson.cloud.ibm.com/instances/880849fa-3dd9-4fd8-9e77-66649f85ccdc",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 420,
+        "y": 180,
+        "wires": [
+            [
+                "73953227.25a5bc",
+                "881baa41.6a0ab8"
+            ]
+        ]
+    },
+    {
+        "id": "23dc138f.6b966c",
+        "type": "ui_text",
+        "z": "3e6bef65.0e917",
+        "group": "7545fbdc.c4d3c4",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Result",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 780,
+        "y": 300,
+        "wires": []
+    }
+]
